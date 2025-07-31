@@ -1,9 +1,11 @@
-package dev.niamhdoyle.getitdone
+package dev.niamhdoyle.getitdone.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
 @Database(entities = [Task::class], version = 1)
 abstract class GetItDoneDb: RoomDatabase() {
+
+    abstract fun getTaskDao() : TaskDao
 
 }

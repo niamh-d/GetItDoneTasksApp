@@ -1,4 +1,4 @@
-package dev.niamhdoyle.getitdone
+package dev.niamhdoyle.getitdone.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
