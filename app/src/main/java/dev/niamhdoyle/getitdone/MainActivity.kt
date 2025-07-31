@@ -9,8 +9,11 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import dev.niamhdoyle.getitdone.data.GetItDoneDb
+import dev.niamhdoyle.getitdone.data.Task
 import dev.niamhdoyle.getitdone.databinding.ActivityMainBinding
 import dev.niamhdoyle.getitdone.databinding.DialogAddNewTaskBinding
+import kotlin.concurrent.thread
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +33,20 @@ class MainActivity : AppCompatActivity() {
         }.attach()
 
         vb.fab.setOnClickListener { showAddNewTaskDialog() }
+
+        val db = GetItDoneDb.createDb(this)
+        val taskDao = db.getTaskDao()
+
+        thread {
+            taskDao.createTask(Task(title = "some task"))
+            taskDao.createTask(Task(title = "Some other task"))
+            val tasks = taskDao.getAllTasks()
+
+            runOnUiThread {
+                Toast.makeText(this, "Number of tasks: ${tasks.size}", Toast.LENGTH_LONG).show()
+            }
+        }
+
     }
 
     private fun showAddNewTaskDialog() {
