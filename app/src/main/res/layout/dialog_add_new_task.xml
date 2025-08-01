@@ -47,7 +47,7 @@
         android:layout_marginStart="12dp"
         android:background="@null"
         android:contentDescription="@string/dialog_add_task_star_btn"
-        android:src="@drawable/ic_star_24"
+        android:src="@drawable/ic_star_outlined_24"
         app:layout_constraintStart_toEndOf="@id/btn_show_details"
         app:layout_constraintTop_toTopOf="@id/btn_show_details" />
 
