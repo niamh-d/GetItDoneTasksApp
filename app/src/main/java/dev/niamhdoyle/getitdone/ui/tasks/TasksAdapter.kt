@@ -5,7 +5,6 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.checkbox.MaterialCheckBox
 import dev.niamhdoyle.getitdone.data.Task
 import dev.niamhdoyle.getitdone.databinding.ItemTaskBinding
 
@@ -27,7 +26,7 @@ class TasksAdapter(private val listener: TaskUpdatedListener) :
 
     @SuppressLint("NotifyDataSetChanged")
     fun setTasks(tasks: List<Task>) {
-        this.tasks = tasks
+        this.tasks = tasks.sortedBy { it.isCompleted }
         notifyDataSetChanged()
     }
 
