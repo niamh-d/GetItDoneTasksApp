@@ -28,6 +28,10 @@ class TasksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fetchAllTasks()
+    }
+
+    fun fetchAllTasks() {
         thread {
             val tasks = taskDao.getAllTasks()
             requireActivity().runOnUiThread {

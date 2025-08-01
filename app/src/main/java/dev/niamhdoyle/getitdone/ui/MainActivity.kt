@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var vb: ActivityMainBinding
     private lateinit var db: GetItDoneDb
     private val taskDao by lazy { db.getTaskDao() }
+    private val tasksFragment: TasksFragment = TasksFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                 taskDao.createTask(task)
             }
             dialog.dismiss()
+            tasksFragment.fetchAllTasks()
         }
 
         dialog.show()
@@ -69,8 +71,7 @@ class MainActivity : AppCompatActivity() {
         override fun getItemCount() = 1
 
         override fun createFragment(position: Int): Fragment {
-            return TasksFragment()
+            return tasksFragment
         }
-
     }
 }
