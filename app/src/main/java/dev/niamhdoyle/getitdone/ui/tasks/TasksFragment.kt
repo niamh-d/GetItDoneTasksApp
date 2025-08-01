@@ -11,7 +11,7 @@ import dev.niamhdoyle.getitdone.data.TaskDao
 import dev.niamhdoyle.getitdone.databinding.FragmentTasksBinding
 import kotlin.concurrent.thread
 
-class TasksFragment : Fragment(), TasksAdapter.TaskUpdatedListener {
+class TasksFragment : Fragment(), TasksAdapter.TaskItemClickListener {
 
     private lateinit var vb: FragmentTasksBinding
     private val taskDao: TaskDao by lazy {
@@ -46,6 +46,13 @@ class TasksFragment : Fragment(), TasksAdapter.TaskUpdatedListener {
     override fun onTaskUpdated(task: Task) {
         thread {
             taskDao.updateTask(task)
+            fetchAllTasks()
+        }
+    }
+
+    override fun onTaskDeleted(task: Task) {
+        thread {
+            taskDao.deleteTask(task)
             fetchAllTasks()
         }
     }

@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.niamhdoyle.getitdone.data.Task
 import dev.niamhdoyle.getitdone.databinding.ItemTaskBinding
 
-class TasksAdapter(private val listener: TaskUpdatedListener) :
+class TasksAdapter(
+    private val listener: TaskItemClickListener
+) :
     RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
 
     private var tasks: List<Task> = listOf()
@@ -36,6 +38,10 @@ class TasksAdapter(private val listener: TaskUpdatedListener) :
 
         fun bind(task: Task) {
             binding.apply {
+                root.setOnLongClickListener {
+                    listener.onTaskDeleted(task)
+                    true
+                }
                 checkbox.isChecked = task.isCompleted
                 toggleStar.isChecked = task.isStarred
                 if (task.isCompleted) {
@@ -65,7 +71,9 @@ class TasksAdapter(private val listener: TaskUpdatedListener) :
         }
     }
 
-    interface TaskUpdatedListener {
+    interface TaskItemClickListener {
         fun onTaskUpdated(task: Task)
+
+        fun onTaskDeleted(task: Task)
     }
 }
