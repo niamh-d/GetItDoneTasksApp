@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         vb.fab.setOnClickListener { showAddNewTaskDialog() }
 
-        db = GetItDoneDb.createDb(this)
+        db = GetItDoneDb.getDb(this)
 
     }
 

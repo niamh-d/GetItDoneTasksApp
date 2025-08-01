@@ -14,7 +14,7 @@ class TasksFragment : Fragment() {
 
     private lateinit var vb: FragmentTasksBinding
     private val taskDao: TaskDao by lazy {
-        GetItDoneDb.createDb(requireContext()).getTaskDao()
+        GetItDoneDb.getDb(requireContext()).getTaskDao()
     }
 
     override fun onCreateView(

@@ -11,12 +11,19 @@ abstract class GetItDoneDb : RoomDatabase() {
     abstract fun getTaskDao(): TaskDao
 
     companion object {
-        fun createDb(context: Context): GetItDoneDb {
-            return Room.databaseBuilder(
-                context,
-                GetItDoneDb::class.java,
-                "get-it-done-db"
-            ).build()
+        @Volatile
+        private var DATABASE_INSTANCE: GetItDoneDb? = null
+        fun getDb(context: Context): GetItDoneDb {
+
+            return DATABASE_INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context,
+                    GetItDoneDb::class.java,
+                    "get-it-done-db"
+                ).build()
+                DATABASE_INSTANCE = instance
+                instance
+            }
         }
     }
 }
