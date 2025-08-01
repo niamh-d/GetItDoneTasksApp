@@ -1,4 +1,4 @@
-package dev.niamhdoyle.getitdone
+package dev.niamhdoyle.getitdone.ui
 
 import android.os.Bundle
 import android.view.View
@@ -13,6 +13,7 @@ import dev.niamhdoyle.getitdone.databinding.ActivityMainBinding
 import dev.niamhdoyle.getitdone.databinding.DialogAddNewTaskBinding
 import androidx.core.view.isVisible
 import dev.niamhdoyle.getitdone.data.Task
+import dev.niamhdoyle.getitdone.ui.tasks.TasksFragment
 import kotlin.concurrent.thread
 
 
