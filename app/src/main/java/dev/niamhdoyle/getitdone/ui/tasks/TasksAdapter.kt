@@ -1,7 +1,7 @@
 package dev.niamhdoyle.getitdone.ui.tasks
 
+import android.annotation.SuppressLint
 import android.graphics.Paint
-import android.support.v4.os.IResultReceiver
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,8 +9,10 @@ import com.google.android.material.checkbox.MaterialCheckBox
 import dev.niamhdoyle.getitdone.data.Task
 import dev.niamhdoyle.getitdone.databinding.ItemTaskBinding
 
-class TasksAdapter(private val tasks: List<Task>, private val listener: TaskUpdatedListener) :
+class TasksAdapter(private val listener: TaskUpdatedListener) :
     RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
+
+    private var tasks: List<Task> = listOf()
 
     override fun getItemCount() = tasks.size
 
@@ -21,6 +23,12 @@ class TasksAdapter(private val tasks: List<Task>, private val listener: TaskUpda
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(tasks[position])
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setTasks(tasks: List<Task>) {
+        this.tasks = tasks
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(private val binding: ItemTaskBinding) :
