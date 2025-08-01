@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Task::class], version = 1)
+@Database(entities = [Task::class], version = 2)
 abstract class GetItDoneDb : RoomDatabase() {
 
     abstract fun getTaskDao(): TaskDao
@@ -20,7 +20,9 @@ abstract class GetItDoneDb : RoomDatabase() {
                     context,
                     GetItDoneDb::class.java,
                     "get-it-done-db"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration(true)
+                    .build()
                 DATABASE_INSTANCE = instance
                 instance
             }
