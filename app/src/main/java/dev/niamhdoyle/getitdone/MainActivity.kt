@@ -2,18 +2,18 @@ package dev.niamhdoyle.getitdone
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
 import dev.niamhdoyle.getitdone.data.GetItDoneDb
 import dev.niamhdoyle.getitdone.databinding.ActivityMainBinding
 import dev.niamhdoyle.getitdone.databinding.DialogAddNewTaskBinding
 import androidx.core.view.isVisible
+import dev.niamhdoyle.getitdone.data.Task
+import kotlin.concurrent.thread
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,8 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         vb.fab.setOnClickListener { showAddNewTaskDialog() }
 
-        val db = GetItDoneDb.createDb(this)
-        val taskDao = db.getTaskDao()
+        db = GetItDoneDb.createDb(this)
 
     }
 
@@ -49,6 +48,17 @@ class MainActivity : AppCompatActivity() {
         dialogBinding.btnShowDetails.setOnClickListener {
             dialogBinding.editTextTaskDetails.visibility =
                 if (dialogBinding.editTextTaskDetails.isVisible) View.GONE else View.VISIBLE
+        }
+
+        dialogBinding.btnSave.setOnClickListener {
+            val task = Task(
+                title = dialogBinding.editTextTaskTitle.text.toString(),
+                description = dialogBinding.editTextTaskDetails.text.toString()
+            )
+            thread {
+                taskDao.createTask(task)
+            }
+            dialog.dismiss()
         }
 
         dialog.show()
