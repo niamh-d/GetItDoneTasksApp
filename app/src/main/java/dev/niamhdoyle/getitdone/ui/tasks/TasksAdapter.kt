@@ -1,5 +1,6 @@
 package dev.niamhdoyle.getitdone.ui.tasks
 
+import android.graphics.Paint
 import android.support.v4.os.IResultReceiver
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -26,6 +27,14 @@ class TasksAdapter(private val tasks: List<Task>, private val listener: TaskUpda
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(task: Task) {
+            binding.checkbox.isChecked = task.isCompleted
+            binding.toggleStar.isChecked = task.isStarred
+            if (task.isCompleted) {
+                binding.textViewTaskTitle.paintFlags =
+                    binding.textViewTaskTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                binding.textViewTaskDescription.paintFlags =
+                    binding.textViewTaskTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            }
             binding.textViewTaskTitle.text = task.title
             binding.textViewTaskDescription.text = task.description
             binding.checkbox.addOnCheckedStateChangedListener { _, state ->
