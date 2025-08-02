@@ -41,6 +41,12 @@ abstract class GetItDoneDb : RoomDatabase() {
                     "get-it-done-db"
                 )
                     .addMigrations(MIGRATION_2_TO_3)
+                    .addCallback(object : Callback() {
+                        override fun onCreate(db: SupportSQLiteDatabase) {
+                            super.onCreate(db)
+                            db.execSQL("INSERT INTO task_list (name) VALUES ('Tasks')")
+                        }
+                    })
                     .build()
                 DATABASE_INSTANCE = instance
                 instance
