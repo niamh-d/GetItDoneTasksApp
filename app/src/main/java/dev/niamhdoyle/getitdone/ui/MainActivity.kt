@@ -125,7 +125,13 @@ class MainActivity : AppCompatActivity() {
             return when (position) {
                 0 -> StarredTasksFragment()
                 taskLists.size + 1 -> Fragment()
-                else -> TasksFragment(taskLists[position - 1].id)
+                else -> {
+                    val bundle = Bundle()
+                    bundle.putInt("listId", taskLists[position - 1].id)
+                   TasksFragment().apply {
+                        arguments = bundle
+                    }
+                }
             }
         }
     }

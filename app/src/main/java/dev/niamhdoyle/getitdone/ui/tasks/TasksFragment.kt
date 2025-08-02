@@ -12,11 +12,12 @@ import dev.niamhdoyle.getitdone.databinding.FragmentTasksBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class TasksFragment(private val taskListId: Int) : Fragment(), TasksAdapter.TaskItemClickListener {
+class TasksFragment() : Fragment(), TasksAdapter.TaskItemClickListener {
 
     private val viewModel: TasksViewModel by viewModels()
     private lateinit var vb: FragmentTasksBinding
     private val adapter = TasksAdapter(this)
+    private var listId: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,6 +25,7 @@ class TasksFragment(private val taskListId: Int) : Fragment(), TasksAdapter.Task
         savedInstanceState: Bundle?
     ): View {
         vb = FragmentTasksBinding.inflate(inflater, container, false)
+        listId = requireArguments().getInt("listId")
         return vb.root
     }
 
@@ -35,7 +37,7 @@ class TasksFragment(private val taskListId: Int) : Fragment(), TasksAdapter.Task
 
     private fun fetchAllTasks() {
         lifecycleScope.launch {
-            viewModel.fetchTasks(taskListId).collectLatest { tasks ->
+            viewModel.fetchTasks(listId ?: 0).collectLatest { tasks ->
                 adapter.setTasks(tasks)
             }
         }
