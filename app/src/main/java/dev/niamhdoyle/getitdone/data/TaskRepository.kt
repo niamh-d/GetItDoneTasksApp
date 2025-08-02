@@ -1,10 +1,12 @@
 package dev.niamhdoyle.getitdone.data
 
 import dev.niamhdoyle.getitdone.data.db.TaskDao
+import dev.niamhdoyle.getitdone.data.db.TaskListDao
 import dev.niamhdoyle.getitdone.data.model.Task
+import dev.niamhdoyle.getitdone.data.model.TaskList
 import kotlinx.coroutines.flow.Flow
 
-class TaskRepository(private val taskDao: TaskDao) {
+class TaskRepository(private val taskDao: TaskDao, private val taskListDao: TaskListDao) {
 
     suspend fun createTask(task: Task) {
         taskDao.createTask(task)
@@ -24,5 +26,9 @@ class TaskRepository(private val taskDao: TaskDao) {
 
     suspend fun deleteTask(task: Task) {
         taskDao.deleteTask(task)
+    }
+
+    fun getTaskLists(): Flow<List<TaskList>> {
+        return taskListDao.getAllLists()
     }
 }
