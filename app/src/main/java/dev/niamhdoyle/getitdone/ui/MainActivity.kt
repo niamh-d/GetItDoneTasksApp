@@ -2,7 +2,6 @@ package dev.niamhdoyle.getitdone.ui
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -18,6 +17,7 @@ import dev.niamhdoyle.getitdone.R
 import dev.niamhdoyle.getitdone.data.model.TaskList
 import dev.niamhdoyle.getitdone.databinding.ActivityMainBinding
 import dev.niamhdoyle.getitdone.databinding.DialogAddNewTaskBinding
+import dev.niamhdoyle.getitdone.databinding.TabButtonBinding
 import dev.niamhdoyle.getitdone.ui.tasks.StarredTasksFragment
 import dev.niamhdoyle.getitdone.ui.tasks.TasksFragment
 import dev.niamhdoyle.getitdone.util.InputValidator
@@ -51,8 +51,11 @@ class MainActivity : AppCompatActivity() {
                                     R.drawable.ic_star_filled_24
                                 )
 
-                            taskLists.size + 1 -> tab.customView = Button(this@MainActivity).apply {
-                                text = "Add new list"
+                            taskLists.size + 1 -> {
+                                val btnBinding = TabButtonBinding.inflate(layoutInflater)
+                                tab.customView = btnBinding.root.apply {
+                                    setOnClickListener { showAddTaskListDialog() }
+                                }
                             }
 
                             else -> {
@@ -66,6 +69,10 @@ class MainActivity : AppCompatActivity() {
             fab.setOnClickListener { showAddNewTaskDialog() }
             setContentView(root)
         }
+    }
+
+    private fun showAddTaskListDialog() {
+        TODO("Not yet implemented")
     }
 
     private fun showAddNewTaskDialog() {
