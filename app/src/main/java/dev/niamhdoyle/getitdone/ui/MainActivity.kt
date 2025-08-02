@@ -16,6 +16,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dev.niamhdoyle.getitdone.R
 import dev.niamhdoyle.getitdone.databinding.ActivityMainBinding
 import dev.niamhdoyle.getitdone.databinding.DialogAddNewTaskBinding
+import dev.niamhdoyle.getitdone.ui.tasks.StarredTasksFragment
 import dev.niamhdoyle.getitdone.ui.tasks.TasksFragment
 import dev.niamhdoyle.getitdone.util.InputValidator
 
@@ -81,7 +82,10 @@ class MainActivity : AppCompatActivity() {
         override fun getItemCount() = 3
 
         override fun createFragment(position: Int): Fragment {
-            return TasksFragment()
+            return when (position) {
+                0 -> StarredTasksFragment()
+                else -> TasksFragment()
+            }
         }
     }
 }

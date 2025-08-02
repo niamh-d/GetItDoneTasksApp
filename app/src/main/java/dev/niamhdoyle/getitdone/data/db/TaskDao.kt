@@ -17,10 +17,12 @@ interface TaskDao {
     @Query("SELECT * FROM task")
     fun getAllTasks(): Flow<List<Task>>
 
+    @Query("SELECT * FROM task WHERE task.is_starred = 1")
+    fun getStarredTasks(): Flow<List<Task>>
+
     @Update
     suspend fun updateTask(task: Task)
 
     @Delete
     suspend fun deleteTask(task: Task)
-
 }
