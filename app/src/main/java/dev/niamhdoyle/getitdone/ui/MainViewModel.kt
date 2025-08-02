@@ -3,16 +3,17 @@ package dev.niamhdoyle.getitdone.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.niamhdoyle.getitdone.GetItDoneApplication
-import dev.niamhdoyle.getitdone.data.Task
+import dev.niamhdoyle.getitdone.data.TaskRepository
+import dev.niamhdoyle.getitdone.data.model.Task
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
-    val taskDao = GetItDoneApplication.taskDao
+    private val repository: TaskRepository = GetItDoneApplication.taskRepository
 
     fun createTask(title: String, description: String?) {
         viewModelScope.launch {
-            taskDao.createTask(
+            repository.createTask(
                 Task(
                     title = title,
                     description = description

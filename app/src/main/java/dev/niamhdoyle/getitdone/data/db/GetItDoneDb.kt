@@ -1,9 +1,10 @@
-package dev.niamhdoyle.getitdone.data
+package dev.niamhdoyle.getitdone.data.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import dev.niamhdoyle.getitdone.data.model.Task
 
 @Database(entities = [Task::class], version = 2)
 abstract class GetItDoneDb : RoomDatabase() {

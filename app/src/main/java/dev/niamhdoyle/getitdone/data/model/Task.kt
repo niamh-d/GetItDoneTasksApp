@@ -1,4 +1,4 @@
-package dev.niamhdoyle.getitdone.data
+package dev.niamhdoyle.getitdone.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -12,6 +12,3 @@ data class Task(
     @ColumnInfo(name = "is_starred") val isStarred: Boolean = false,
     @ColumnInfo(name = "is_completed") val isCompleted: Boolean = false
 )
-
-
-

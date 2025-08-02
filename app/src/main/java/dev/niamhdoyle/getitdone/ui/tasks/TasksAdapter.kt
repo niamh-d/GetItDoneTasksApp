@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import dev.niamhdoyle.getitdone.data.Task
+import dev.niamhdoyle.getitdone.data.model.Task
 import dev.niamhdoyle.getitdone.databinding.ItemTaskBinding
 
 class TasksAdapter(
