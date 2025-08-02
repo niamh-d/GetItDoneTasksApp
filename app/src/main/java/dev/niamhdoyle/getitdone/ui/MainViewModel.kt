@@ -19,7 +19,8 @@ class MainViewModel : ViewModel() {
             repository.createTask(
                 Task(
                     title = title,
-                    description = description
+                    description = description,
+                    listId = 1
                 )
             )
         }
