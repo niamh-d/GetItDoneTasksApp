@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import dev.niamhdoyle.getitdone.data.Task
 import dev.niamhdoyle.getitdone.databinding.FragmentTasksBinding
+import kotlinx.coroutines.launch
 
 class TasksFragment : Fragment(), TasksAdapter.TaskItemClickListener {
 
@@ -31,18 +33,19 @@ class TasksFragment : Fragment(), TasksAdapter.TaskItemClickListener {
     }
 
     fun fetchAllTasks() {
-        viewModel.fetchTasks { tasks ->
-            requireActivity().runOnUiThread {
-                adapter.setTasks(tasks)
-            }
+        lifecycleScope.launch {
+            val tasks = viewModel.fetchTasks()
+            adapter.setTasks(tasks)
         }
     }
 
     override fun onTaskUpdated(task: Task) {
         viewModel.updateTask(task)
+        fetchAllTasks()
     }
 
     override fun onTaskDeleted(task: Task) {
         viewModel.deleteTask(task)
+        fetchAllTasks()
     }
 }

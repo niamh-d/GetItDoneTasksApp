@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -11,8 +13,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayoutMediator
 import dev.niamhdoyle.getitdone.databinding.ActivityMainBinding
 import dev.niamhdoyle.getitdone.databinding.DialogAddNewTaskBinding
-import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import dev.niamhdoyle.getitdone.ui.tasks.TasksFragment
 import dev.niamhdoyle.getitdone.util.InputValidator
 

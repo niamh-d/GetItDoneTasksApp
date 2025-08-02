@@ -1,16 +1,17 @@
 package dev.niamhdoyle.getitdone.ui
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dev.niamhdoyle.getitdone.GetItDoneApplication
 import dev.niamhdoyle.getitdone.data.Task
-import kotlin.concurrent.thread
+import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
     val taskDao = GetItDoneApplication.taskDao
 
     fun createTask(title: String, description: String?) {
-        thread {
+        viewModelScope.launch {
             taskDao.createTask(
                 Task(
                     title = title,
