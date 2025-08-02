@@ -31,4 +31,8 @@ class TaskRepository(private val taskDao: TaskDao, private val taskListDao: Task
     fun getTaskLists(): Flow<List<TaskList>> {
         return taskListDao.getAllLists()
     }
+
+    suspend fun createTaskList(listName: String) {
+        taskListDao.createTaskList(TaskList(name = listName))
+    }
 }

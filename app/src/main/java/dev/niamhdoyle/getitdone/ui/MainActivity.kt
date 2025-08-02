@@ -12,11 +12,13 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
 import dev.niamhdoyle.getitdone.R
 import dev.niamhdoyle.getitdone.data.model.TaskList
 import dev.niamhdoyle.getitdone.databinding.ActivityMainBinding
 import dev.niamhdoyle.getitdone.databinding.DialogAddNewTaskBinding
+import dev.niamhdoyle.getitdone.databinding.DialogAddTaskListBinding
 import dev.niamhdoyle.getitdone.databinding.TabButtonBinding
 import dev.niamhdoyle.getitdone.ui.tasks.StarredTasksFragment
 import dev.niamhdoyle.getitdone.ui.tasks.TasksFragment
@@ -72,7 +74,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showAddTaskListDialog() {
-        TODO("Not yet implemented")
+        val dialogBinding = DialogAddTaskListBinding.inflate(layoutInflater)
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.add_new_list_dialog_text))
+            .setView(dialogBinding.root)
+            .setPositiveButton(getString(R.string.create_new_list_dialog_btn_text)) { dialog, _ ->
+                viewModel.addNewTaskList(dialogBinding.editTextListName.text?.toString())
+                dialog.dismiss()
+            }
+            .setNegativeButton(getString(R.string.cancel_new_list_dialog_btn_text)) { dialog, _ ->
+                dialog.dismiss()
+            }.show()
     }
 
     private fun showAddNewTaskDialog() {

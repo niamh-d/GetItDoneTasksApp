@@ -7,4 +7,8 @@
     <string name="dialog_add_task_details_btn">Add details</string>
     <string name="dialog_btn_save">Save</string>
     <string name="add_new_list_btn_text">Add new list</string>
+    <string name="add_new_list_dialog_text">Add new list</string>
+    <string name="create_new_list_dialog_btn_text">Create</string>
+    <string name="cancel_new_list_dialog_btn_text">Cancel</string>
+    <string name="add_task_list_field_hint">Name for your new list</string>
 </resources>
