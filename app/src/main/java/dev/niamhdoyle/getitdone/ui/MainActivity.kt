@@ -15,6 +15,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayoutMediator
 import dev.niamhdoyle.getitdone.R
+import dev.niamhdoyle.getitdone.data.model.TaskList
 import dev.niamhdoyle.getitdone.databinding.ActivityMainBinding
 import dev.niamhdoyle.getitdone.databinding.DialogAddNewTaskBinding
 import dev.niamhdoyle.getitdone.ui.tasks.StarredTasksFragment
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
     private lateinit var vb: ActivityMainBinding
+    private var currentTaskLists: List<TaskList> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +38,8 @@ class MainActivity : AppCompatActivity() {
 
             lifecycleScope.launch {
                 viewModel.getTaskLists().collectLatest { taskLists ->
+
+                    currentTaskLists = taskLists
 
                     pager.adapter = PagerAdapter(this@MainActivity, taskLists.size + 2)
                     pager.currentItem = 1
@@ -56,21 +60,10 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                     }.attach()
-
-
                 }
             }
 
-
-
-
-
-
-
-
-
             fab.setOnClickListener { showAddNewTaskDialog() }
-
             setContentView(root)
         }
     }
@@ -92,9 +85,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             btnSave.setOnClickListener {
+                val listId = currentTaskLists[vb.pager.currentItem - 1].id
                 viewModel.createTask(
                     title = editTextTaskTitle.text.toString(),
-                    description = editTextTaskDetails.text.toString()
+                    description = editTextTaskDetails.text.toString(),
+                    listId = listId
                 )
                 dialog.dismiss()
             }
