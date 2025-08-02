@@ -14,8 +14,8 @@ interface TaskDao {
     @Insert
     suspend fun createTask(task: Task)
 
-    @Query("SELECT * FROM task")
-    fun getAllTasks(): Flow<List<Task>>
+    @Query("SELECT * FROM task WHERE task.list_id_foreign_key = :taskListId")
+    fun getAllTasks(taskListId: Int): Flow<List<Task>>
 
     @Query("SELECT * FROM task WHERE task.is_starred = 1")
     fun getStarredTasks(): Flow<List<Task>>

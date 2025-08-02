@@ -12,7 +12,7 @@ import dev.niamhdoyle.getitdone.databinding.FragmentTasksBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class TasksFragment : Fragment(), TasksAdapter.TaskItemClickListener {
+class TasksFragment(private val taskListId: Int) : Fragment(), TasksAdapter.TaskItemClickListener {
 
     private val viewModel: TasksViewModel by viewModels()
     private lateinit var vb: FragmentTasksBinding
@@ -35,7 +35,7 @@ class TasksFragment : Fragment(), TasksAdapter.TaskItemClickListener {
 
     private fun fetchAllTasks() {
         lifecycleScope.launch {
-            viewModel.fetchTasks().collectLatest { tasks ->
+            viewModel.fetchTasks(taskListId).collectLatest { tasks ->
                 adapter.setTasks(tasks)
             }
         }

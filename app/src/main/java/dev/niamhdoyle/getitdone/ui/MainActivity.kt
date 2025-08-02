@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
                     currentTaskLists = taskLists
 
-                    pager.adapter = PagerAdapter(this@MainActivity, taskLists.size + 2)
+                    pager.adapter = PagerAdapter(this@MainActivity, taskLists)
                     pager.currentItem = 1
                     TabLayoutMediator(tabs, pager) { tab, position ->
                         when (position) {
@@ -117,14 +117,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    inner class PagerAdapter(activity: FragmentActivity, private val numPages: Int) :
+    inner class PagerAdapter(activity: FragmentActivity, private val taskLists: List<TaskList>) :
         FragmentStateAdapter(activity) {
-        override fun getItemCount() = numPages
+        override fun getItemCount() = taskLists.size + 2
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> StarredTasksFragment()
-                else -> TasksFragment()
+                taskLists.size + 1 -> Fragment()
+                else -> TasksFragment(taskLists[position - 1].id)
             }
         }
     }
