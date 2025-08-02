@@ -1,8 +1,6 @@
 package dev.niamhdoyle.getitdone.ui
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -18,6 +16,7 @@ import androidx.core.widget.addTextChangedListener
 import dev.niamhdoyle.getitdone.data.Task
 import dev.niamhdoyle.getitdone.data.TaskDao
 import dev.niamhdoyle.getitdone.ui.tasks.TasksFragment
+import dev.niamhdoyle.getitdone.util.InputValidator
 import kotlin.concurrent.thread
 
 
@@ -51,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             btnSave.isEnabled = false
 
             editTextTaskTitle.addTextChangedListener { input ->
-                btnSave.isEnabled = isInputValid(input)
+                btnSave.isEnabled = InputValidator.isInputValid(input.toString())
             }
 
             btnShowDetails.setOnClickListener {
@@ -73,11 +72,6 @@ class MainActivity : AppCompatActivity() {
 
             dialog.show()
         }
-    }
-
-    private fun isInputValid(input: Editable?): Boolean {
-        val trimmedInput = input?.trim()
-        return !trimmedInput.isNullOrEmpty() && trimmedInput.length > 1
     }
 
     inner class PagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {

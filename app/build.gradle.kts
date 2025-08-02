@@ -53,4 +53,5 @@ dependencies {
     ksp(libs.androidx.room.room.compiler)
     annotationProcessor(libs.androidx.room.room.compiler)
     implementation(libs.androidx.room.ktx)
+    testImplementation(kotlin("test"))
 }
