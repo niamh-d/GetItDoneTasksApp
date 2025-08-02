@@ -2,8 +2,10 @@ package dev.niamhdoyle.getitdone.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -11,6 +13,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayoutMediator
+import dev.niamhdoyle.getitdone.R
 import dev.niamhdoyle.getitdone.databinding.ActivityMainBinding
 import dev.niamhdoyle.getitdone.databinding.DialogAddNewTaskBinding
 import dev.niamhdoyle.getitdone.ui.tasks.TasksFragment
@@ -27,8 +30,17 @@ class MainActivity : AppCompatActivity() {
 
         vb = ActivityMainBinding.inflate(layoutInflater).apply {
             pager.adapter = PagerAdapter(this@MainActivity)
-            TabLayoutMediator(tabs, pager) { tab, _ ->
-                tab.text = "Tasks"
+            pager.currentItem = 1
+            TabLayoutMediator(tabs, pager) { tab, position ->
+                when (position) {
+                    0 -> tab.icon =
+                        ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_star_filled_24)
+
+                    1 -> tab.text = "Tasks"
+                    2 -> tab.customView = Button(this@MainActivity).apply {
+                        text = "Add new list"
+                    }
+                }
             }.attach()
 
             fab.setOnClickListener { showAddNewTaskDialog() }
@@ -66,7 +78,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     inner class PagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
-        override fun getItemCount() = 1
+        override fun getItemCount() = 3
 
         override fun createFragment(position: Int): Fragment {
             return TasksFragment()
