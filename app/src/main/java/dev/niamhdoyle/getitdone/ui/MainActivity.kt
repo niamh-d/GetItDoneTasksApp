@@ -92,7 +92,17 @@ class MainActivity : AppCompatActivity() {
             val dialog = BottomSheetDialog(this@MainActivity)
             dialog.setContentView(root)
 
+            var taskToAddIsStarred = false
+
             btnSave.isEnabled = false
+
+            btnStarTask.setOnClickListener {
+                taskToAddIsStarred = !taskToAddIsStarred
+                when (taskToAddIsStarred) {
+                    true -> btnStarTask.setImageResource(R.drawable.ic_star_filled_24)
+                    else -> btnStarTask.setImageResource(R.drawable.ic_star_outlined_24)
+                }
+            }
 
             editTextTaskTitle.addTextChangedListener { input ->
                 btnSave.isEnabled = InputValidator.isInputValid(input.toString())
@@ -108,7 +118,8 @@ class MainActivity : AppCompatActivity() {
                 viewModel.createTask(
                     title = editTextTaskTitle.text.toString(),
                     description = editTextTaskDetails.text.toString(),
-                    listId = listId
+                    listId = listId,
+                    isStarred = taskToAddIsStarred
                 )
                 dialog.dismiss()
             }
@@ -128,7 +139,7 @@ class MainActivity : AppCompatActivity() {
                 else -> {
                     val bundle = Bundle()
                     bundle.putInt("listId", taskLists[position - 1].id)
-                   TasksFragment().apply {
+                    TasksFragment().apply {
                         arguments = bundle
                     }
                 }
