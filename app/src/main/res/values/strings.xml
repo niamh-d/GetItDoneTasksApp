@@ -11,4 +11,5 @@
     <string name="create_new_list_dialog_btn_text">Create</string>
     <string name="cancel_new_list_dialog_btn_text">Cancel</string>
     <string name="add_task_list_field_hint">Name for your new list</string>
+    <string name="delete_task_btn_text">Delete Task</string>
 </resources>
