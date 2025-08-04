@@ -38,10 +38,6 @@ class TasksAdapter(
 
         fun bind(task: Task) {
             binding.apply {
-                root.setOnLongClickListener {
-                    listener.onTaskDeleted(task)
-                    true
-                }
                 checkbox.isChecked = task.isCompleted
                 toggleStar.isChecked = task.isStarred
                 if (task.isCompleted) {
@@ -59,6 +55,10 @@ class TasksAdapter(
                 } else {
                     textViewTaskDescription.text = task.description
                     textViewTaskDescription.visibility = View.VISIBLE
+                }
+
+                btnDeleteTask.setOnClickListener {
+                    listener.onTaskDeleted(task)
                 }
 
                 checkbox.setOnClickListener {
