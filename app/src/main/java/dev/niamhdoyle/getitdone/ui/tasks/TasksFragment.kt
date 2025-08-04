@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.niamhdoyle.getitdone.data.model.Task
 import dev.niamhdoyle.getitdone.databinding.FragmentTasksBinding
 import kotlinx.coroutines.flow.collectLatest
@@ -48,6 +49,18 @@ class TasksFragment() : Fragment(), TasksAdapter.TaskItemClickListener {
     }
 
     override fun onTaskDeleted(task: Task) {
-        viewModel.deleteTask(task)
+        showDeleteTaskDialog(task)
+    }
+
+    private fun showDeleteTaskDialog(task: Task) {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("Delete Task")
+            setMessage("Are you sure you want to delete the task? This action cannot be undone.")
+            setPositiveButton("Yes") { _, _ ->
+                viewModel.deleteTask(task)
+            }
+            setNegativeButton("No", null)
+            show()
+        }
     }
 }
